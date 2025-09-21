@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хоккайдо 2026. Свои люди, новый снег.</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --navy-grey: #2c3e50;
+            --creamy-white: #fdfbf7;
+            --light-grey: #bdc3c7;
+            --accent-gold: #c7a17a;
+            --font-heading: 'Cormorant', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--navy-grey);
+            color: var(--creamy-white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--creamy-white);
+        }
+
+        /* --- Snowflake Canvas --- */
+        #snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- Fade-in Animation on Scroll --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header & Hero Section (Screen 1) --- */
+        header {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--creamy-white);
+        }
+        
+        #video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(44, 62, 80, 0.7); /* Darker overlay for text readability */
+            z-index: -1;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            position: absolute;
+            top: 40px;
+            left: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            font-style: italic;
+            font-family: var(--font-heading);
+            margin-top: 1rem;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--creamy-white);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+        .scroll-down::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--creamy-white);
+            margin: 10px auto 0;
+        }
+
+        /* --- Philosophy Section (Screen 2) --- */
+        #philosophy {
+            background-color: var(--creamy-white);
+            color: var(--navy-grey);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .philosophy-grid img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .philosophy-grid h3 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* --- Dimensions Section (Screen 3) --- */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        .dimension-item {
+            padding: 2rem;
+            border: 1px solid rgba(189, 195, 199, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        .dimension-item:hover {
+            background-color: rgba(253, 251, 247, 0.05);
+        }
+        .dimension-item i {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+        .dimension-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .dimension-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- Catskiing Section (Screen 4) --- */
+        #catskiing {
+            background-image: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)), url(https://images.pexels.com/photos/3384693/pexels-photo-3384693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            text-align: center;
+        }
+
+        #catskiing .container {
+             max-width: 800px;
+        }
+        
+        #catskiing h2 {
+            font-size: 3rem;
+        }
+
+        .catskiing-details {
+            margin-top: 3rem;
+            border-top: 1px solid var(--accent-gold);
+            padding-top: 3rem;
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            font-size: 1rem;
+        }
+        .catskiing-details strong {
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        /* --- Curators Section (Screen 5) --- */
+        #curators {
+            background-color: var(--creamy-white);
+            color: var(--navy-grey);
+        }
+        
+        .curators-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .curator-card {
+            text-align: center;
+        }
+        .curator-card img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--navy-grey);
+        }
+        .curator-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .curator-card p.role {
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .curator-card p {
+            text-align: left;
+            font-size: 1rem;
+        }
+        
+        /* --- Details Section (Screen 6) --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .details-grid img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .details-grid h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .schedule-list li {
+            list-style: none;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(189, 195, 199, 0.2);
+        }
+        .schedule-list li:last-child {
+            border-bottom: none;
+        }
+        .schedule-list li span {
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-right: 15px;
+        }
+
+        /* --- Pricing Section (Screen 7) --- */
+        #pricing {
+            background-color: var(--creamy-white);
+            color: var(--navy-grey);
+            text-align: center;
+        }
+        
+        #pricing .container {
+            max-width: 900px;
+        }
+        
+        .price {
+            font-size: 6rem;
+            font-family: var(--font-heading);
+            color: var(--navy-grey);
+            margin: 1rem 0;
+        }
+        
+        .pricing-lists {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+            margin-top: 3rem;
+        }
+        
+        .pricing-lists h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-lists ul {
+            list-style: none;
+        }
+
+        .pricing-lists ul li {
+            margin-bottom: 1rem;
+            font-weight: 300;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .pricing-lists ul li i {
+            margin-right: 10px;
+            margin-top: 5px;
+            color: var(--accent-gold);
+        }
+        .pricing-lists ul.not-included li i {
+            color: #95a5a6;
+        }
+        
+
+        /* --- Reels / Happy Faces Section --- */
+        #gallery {
+            padding-bottom: 0;
+        }
+        .gallery-container {
+            padding: 0;
+            max-width: 100%;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--creamy-white);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* --- CTA Section (Screen 8) --- */
+        #cta {
+            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://images.pexels.com/photos/776269/pexels-photo-776269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        #cta .container {
+            max-width: 800px;
+        }
+        
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #1e2b38;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            h2 { font-size: 2.8rem; }
+            .hero-content h1 { font-size: 4rem; }
+        }
+
+        @media (max-width: 768px) {
+            .philosophy-grid, .curators-grid, .details-grid, .pricing-lists {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 576px) {
+             h2 { font-size: 2.2rem; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1.2rem; }
+            section { padding: 60px 0; }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="snowflakes"></canvas>
+
+    <header>
+        <video autoplay muted loop playsinline id="video-bg">
+            <source src="https://cdn.coverr.co/videos/coverr-a-snowboarder-carving-down-a-mountain-6115/1080p.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="logo">HOKKAIDO 2026</div>
+        <div class="hero-content fade-in">
+            <h1>Хоккайдо 2026. Свои люди, новый снег.</h1>
+            <p>Экспедиция для тех, кто ищет большего.</p>
+            <a href="#philosophy" class="btn">Узнать больше</a>
+        </div>
+        <a href="#philosophy" class="scroll-down"></a>
+    </header>
+
+    <main>
+        <section id="philosophy">
+            <div class="container philosophy-grid">
+                <div class="philosophy-text fade-in">
+                    <h3>Это не просто лыжный тур.</h3>
+                    <p>Это настоящее приключение, созданное вокруг одной простой идеи: самые яркие моменты жизни те, что мы разделяем с другими.</p>
+                    <p>Мы организуем экспедиции для тех, кто ищет большего. Для вольных духом, кто знает, что идеальный спуск по целине это лишь половина истории. Вторая половина рождается в общем смехе за бокалом редкого виски, в коллективном восторге на вершине горы, в новых связях, рождённых общей страстью.</p>
+                </div>
+                <div class="philosophy-image fade-in">
+                    <img src="https://images.pexels.com/photos/1004584/pexels-photo-1004584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Группа друзей у камина в уютном шале">
+                </div>
+            </div>
+        </section>
+
+        <section id="dimensions">
+            <div class="container">
+                <h2 class="fade-in">Четыре измерения вашего приключения</h2>
+                <div class="dimensions-grid">
+                    <div class="dimension-item fade-in" style="transition-delay: 100ms;">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                        <h3>ПРИКЛЮЧЕНИЕ</h3>
+                        <p>Мы мобильная команда «охотников за снегом». Каждый вечер наши кураторы изучают карты и прогнозы, чтобы утром мы отправились туда, где лучший снег на острове.</p>
+                    </div>
+                    <div class="dimension-item fade-in" style="transition-delay: 200ms;">
+                        <i class="fa-solid fa-users"></i>
+                        <h3>СООБЩЕСТВО</h3>
+                        <p>Группа из 5-7 единомышленников - это ядро экспедиции. Наш дом – приватное шале, где за общими ужинами и вечерними брифингами у камина рождается ваша команда.</p>
+                    </div>
+                    <div class="dimension-item fade-in" style="transition-delay: 300ms;">
+                        <i class="fa-solid fa-torii-gate"></i>
+                        <h3>ПОГРУЖЕНИЕ</h3>
+                        <p>Мы открываем вам подлинную Японию. Ужин в семейном ресторане, медитация в уединенном онсэне под падающим снегом, дегустация саке с сомелье.</p>
+                    </div>
+                    <div class="dimension-item fade-in" style="transition-delay: 400ms;">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <h3>СВОБОДА</h3>
+                        <p>Ваша единственная задача – быть в моменте. Мы берем на себя всё остальное. Ваше снаряжение готово, лучший столик забронирован, а консьерж 24/7 к вашим услугам.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catskiing">
+            <div class="container fade-in">
+                <h2>Для ищущих абсолюта: Экспедиция на ратраке</h2>
+                <p>Это не просто дополнительная активность. Это отдельная глава вашего приключения, вызов для тех, кто готов шагнуть за горизонт. По вашему желанию мы организуем приватный день кэтскиинга на дикие склоны, где не бывает никого, кроме нашей группы.</p>
+                <div class="catskiing-details">
+                    <div>
+                        <strong>Опция:</strong> Приватный день кэтскиинга.<br>
+                        <strong>Стоимость:</strong> от $1000 с человека.
+                    </div>
+                    <div>
+                        <strong>Включает:</strong> ратрак на весь день, услуги гидов, лавинное снаряжение, ланч в горах. <br>
+                        <em>Бронируется заранее из-за высочайшего спроса.</em>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery">
+             <div class="container">
+                <h2 class="fade-in">Моменты, которые мы разделяем</h2>
+            </div>
+            <div class="gallery-container">
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                         <img src="https://images.pexels.com/photos/1683492/pexels-photo-1683492.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Счастливые лица друзей на снегу">
+                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                         <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2574&auto=format&fit=crop" alt="Сноубордист в глубоком снегу">
+                         <div class="overlay"><i class="fa-solid fa-play"></i></div> </div>
+                     <div class="gallery-item">
+                         <img src="https://images.pexels.com/photos/209695/pexels-photo-209695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Блюдо японской кухни">
+                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                         <img src="https://images.pexels.com/photos/618848/pexels-photo-618848.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Счастливая пара на горнолыжном курорте">
+                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                         <img src="https://images.pexels.com/photos/3408354/pexels-photo-3408354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Вид на гору Фудзи зимой (в качестве примера японского пейзажа)">
+                         <div class="overlay"><i class="fa-solid fa-play"></i></div> </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="curators">
+            <div class="container">
+                <h2 class="fade-in">Ваши кураторы приключения</h2>
+                <div class="curators-grid">
+                    <div class="curator-card fade-in" style="transition-delay: 100ms;">
+                        <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?q=80&w=2576&auto=format&fit=crop" alt="Портрет Анны Крюковой">
+                        <h3>Анна Крюкова</h3>
+                        <p class="role">Горные лыжи</p>
+                        <p>Не просто инструктор, а настоящий пионер фрирайд-маршрутов Хоккайдо. Анна знает каждый кулуар и лесную тропу Нисеко. Она научит вас читать рельеф и находить свою идеальную линию в глубоком снегу. С ней вы почувствуете горы как свой дом.</p>
+                    </div>
+                    <div class="curator-card fade-in" style="transition-delay: 200ms;">
+                        <img src="https://images.unsplash.com/photo-1542345821-bf630414d549?q=80&w=2574&auto=format&fit=crop" alt="Портрет Елизаветы Касьяновой">
+                        <h3>Елизавета Касьянова</h3>
+                        <p class="role">Сноуборд</p>
+                        <p>Эксперт по японскому паудеру и душа нашей команды. Елизавета обладает уникальным даром создавать непринужденную и веселую атмосферу. Она откроет вам секреты идеального скольжения в «пухляке» и покажет, где в деревне готовят самый вкусный рамен после катания.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="details">
+            <div class="container">
+                <h2 class="fade-in">Пространство и время</h2>
+                <div class="details-grid">
+                    <div class="details-text fade-in">
+                        <h3>Проживание</h3>
+                        <p>Приватное шале класса люкс в сердце Нисеко. Просторная гостиная с камином, панорамные окна с видом на вулкан Йотэй, полностью оборудованная кухня и уютные спальни. Идеальное место для отдыха и общения после насыщенного дня.</p>
+                        <h3 style="margin-top: 2rem;">Примерный распорядок дня:</h3>
+                        <ul class="schedule-list">
+                            <li><span>07:30</span> Пробуждение, кофе, зарядка.</li>
+                            <li><span>09:00</span> Выезд на «охоту за снегом».</li>
+                            <li><span>10:00-16:00</span> Катание, исследование, ланч на горе.</li>
+                            <li><span>17:00</span> Восстановление в онсэне.</li>
+                            <li><span>19:00</span> Общий ужин в шале или ресторане.</li>
+                            <li><span>21:00</span> Экспедиционный брифинг у камина.</li>
+                        </ul>
+                    </div>
+                    <div class="details-image fade-in">
+                        <img src="https://images.pexels.com/photos/1733273/pexels-photo-1733273.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Вид на вулкан Йотэй из шале">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing">
+            <div class="container fade-in">
+                <h2>Ваша инвестиция в приключение</h2>
+                <p>Мы верим, что настоящие впечатления бесценны. Эта стоимость - ваша инвестиция в уникальный опыт, новые знакомства и воспоминания, которые останутся с вами навсегда.</p>
+                <div class="price">$6000 USD</div>
+                <div class="pricing-lists">
+                    <div>
+                        <h3>В стоимость включено:</h3>
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i>Проживание в приватном шале (7 ночей).</li>
+                            <li><i class="fa-solid fa-check"></i>Сопровождение двух кураторов-гидов.</li>
+                            <li><i class="fa-solid fa-check"></i>Все завтраки и ужины.</li>
+                            <li><i class="fa-solid fa-check"></i>Ски-пассы на все курорты по программе.</li>
+                            <li><i class="fa-solid fa-check"></i>Все трансферы по программе.</li>
+                            <li><i class="fa-solid fa-check"></i>Посещение онсэнов и мастер-классы.</li>
+                            <li><i class="fa-solid fa-check"></i>Персональный консьерж-сервис 24/7.</li>
+                        </ul>
+                    </div>
+                     <div class="not-included">
+                        <h3>Дополнительно оплачивается:</h3>
+                        <ul class="not-included">
+                            <li><i class="fa-solid fa-xmark"></i>Авиаперелет до Саппоро (New Chitose).</li>
+                            <li><i class="fa-solid fa-xmark"></i>Спортивная страховка.</li>
+                            <li><i class="fa-solid fa-xmark"></i>Обеды на горе.</li>
+                            <li><i class="fa-solid fa-xmark"></i>Алкогольные напитки сверх предложенных.</li>
+                            <li><i class="fa-solid fa-xmark"></i>Опциональная экспедиция на ратраке.</li>
+                            <li><i class="fa-solid fa-xmark"></i>Личные расходы.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta">
+            <div class="container fade-in">
+                <h2>Ваша глава приключений ждет.</h2>
+                <p>Количество мест в экспедиции ограничено. Мы формируем группу из людей, близких по духу, чтобы создать уникальную атмосферу. Если наша философия вам откликается, свяжитесь с нами, чтобы обсудить детали и забронировать место в команде.</p>
+                <a href="mailto:your-email@example.com" class="btn">Оставить заявку</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Email: expedition@hokkaido.lux | Телефон: +1 (234) 567-890</p>
+            <p>&copy; 2025 Hokkaido Expeditions. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    // --- JAVASCRIPT ---
+
+    // Snowflake effect
+    const canvas = document.getElementById('snowflakes');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    function createParticles() {
+        particles = [];
+        let particleCount = 200;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                density: Math.random() * particleCount
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(253, 251, 247, 0.8)';
+        ctx.beginPath();
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            ctx.moveTo(p.x, p.y);
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, true);
+        }
+        ctx.fill();
+        update();
+    }
+
+    let angle = 0;
+    function update() {
+        angle += 0.01;
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.y += Math.cos(angle + p.density) + 1 + p.radius / 2;
+            p.x += Math.sin(angle) * 2;
+
+            if (p.x > canvas.width + 5 || p.x < -5 || p.y > canvas.height) {
+                if (i % 3 > 0) {
+                    particles[i] = { x: Math.random() * canvas.width, y: -10, radius: p.radius, density: p.density };
+                } else {
+                    if (Math.sin(angle) > 0) {
+                        particles[i] = { x: -5, y: Math.random() * canvas.height, radius: p.radius, density: p.density };
+                    } else {
+                        particles[i] = { x: canvas.width + 5, y: Math.random() * canvas.height, radius: p.radius, density: p.density };
+                    }
+                }
+            }
+        }
+    }
+    
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        createParticles();
+    });
+
+    createParticles();
+    setInterval(draw, 33);
+
+
+    // Fade-in on scroll
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('visible');
+                appearOnScroll.unobserve(entry.target);
+            }
+        });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+    });
+
+    </script>
+</body>
+</html>
