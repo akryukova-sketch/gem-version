@@ -160,15 +160,15 @@
                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                     <div class="gallery-item">
-                        <img src="images/705b6bc4-7ac0-45a8-a121-9f7c85417204.jpg" alt="Сноубордист в желтом в глубоком снегу">
-                        <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
-                    </div>
-                    <div class="gallery-item">
                         <img src="images/IMG_1157.jpeg" alt="Сноубордист под заснеженными ветками">
                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                     <div class="gallery-item">
-                        <img src="images/3dab0015-d30e-4b47-9984-6cca07a6deea.jpg" alt="Снежные скалы и горы">
+                        <img src="images/IMG_9239.jpg" alt="Лыжник прыгает под подъемником">
+                        <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/IMG_1660.JPG" alt="Ван, занесенный снегом">
                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                     <div class="gallery-item">
@@ -177,6 +177,18 @@
                     </div>
                     <div class="gallery-item">
                         <img src="images/IMG_1353.jpg" alt="Снежный пейзаж между деревьями">
+                        <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/IMG_1028.jpeg" alt="Зимний пейзаж Хоккайдо">
+                        <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/IMG_1999.jpeg" alt="Фрирайд в Хоккайдо">
+                        <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
+                     <div class="gallery-item">
+                        <img src="images/IMG_2048.jpeg" alt="Снег в Японии">
                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                 </div>
@@ -193,7 +205,7 @@
                         <p>Не просто инструктор, а настоящий пионер фрирайд-маршрутов Хоккайдо. Анна знает каждый кулуар и лесную тропу Нисеко. Она научит вас читать рельеф и находить свою идеальную линию в глубоком снегу. С ней вы почувствуете горы как свой дом.</p>
                     </div>
                     <div class="curator-card fade-in" style="transition-delay: 200ms;">
-                        <img src="images/Screenshot 2025-09-21 at 14.17.16.png" alt="Портрет Елизаветы с сосулькой">
+                        <img src="images/Screenshot 2025-09-21 at 15.22.58.png" alt="Портрет Елизаветы с сосулькой">
                         <h3>Елизавета Касьянова</h3>
                         <p class="role">Сноуборд</p>
                         <p>Эксперт по японскому паудеру и душа нашей команды. Елизавета обладает уникальным даром создавать непринужденную и веселую атмосферу. Она откроет вам секреты идеального скольжения в «пухляке» и покажет, где в деревне готовят самый вкусный рамен после катания.</p>
@@ -220,10 +232,14 @@
                     </div>
                     <div class="accommodation-gallery fade-in">
                         <div class="main-image">
-                            <img src="images/lodge-livingroom.jpg" alt="Просторная гостиная шале">
+                            <img src="images/20231216_145237.jpg" alt="Гостиная в шале с деревянной отделкой">
                         </div>
-                        <div><img src="images/lodge-bedroom.jpg" alt="Уютная спальня в шале"></div>
-                        <div><img src="images/lodge-lounge.jpg" alt="Зона отдыха в шале"></div>
+                        <div>
+                            <img src="images/20231216_143948.jpg" alt="Уютная лаунж-зона с подушками в шале">
+                        </div>
+                        <div>
+                           <img src="images/Hooting Owl lodge Niseko.jpg" alt="Вид из окна шале на заснеженную деревню и гору">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -339,7 +355,7 @@
                 if (!entry.isIntersecting) { return; } 
                 else { entry.target.classList.add('visible'); appearOnScroll.unobserve(entry.target); }
             });
-        }, appearOptions);
+        }, appearOnScroll);
         faders.forEach(fader => { appearOnScroll.observe(fader); });
     </script>
 </body>
