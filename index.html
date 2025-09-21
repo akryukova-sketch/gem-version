@@ -119,9 +119,14 @@
             justify-content: center;
             text-align: center;
             color: var(--creamy-white);
+             /* Используем первое загруженное изображение как фон */
+            background-image: url(https://i.ibb.co/L5Q2j85/image-1.jpg); 
+            background-size: cover;
+            background-position: center;
         }
         
-        #video-bg {
+        /* Убираем видео, так как теперь есть фоновое изображение */
+        /* #video-bg {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -131,7 +136,7 @@
             height: auto;
             z-index: -2;
             transform: translateX(-50%) translateY(-50%);
-        }
+        } */
 
         .hero-overlay {
             position: absolute;
@@ -170,7 +175,7 @@
         
         .scroll-down {
             position: absolute;
-            bottom: 30px;
+            bottom: 33px; /* Изменено, чтобы не перекрывать девушку */
             left: 50%;
             transform: translateX(-50%);
             color: var(--creamy-white);
@@ -242,7 +247,7 @@
 
         /* --- Catskiing Section (Screen 4) --- */
         #catskiing {
-            background-image: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)), url(https://images.pexels.com/photos/3384693/pexels-photo-3384693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+            background-image: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)), url(https://i.ibb.co/3k5fHwS/image-6.jpg); /* Используем фото 6 как фон */
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* Parallax effect */
@@ -318,10 +323,7 @@
             gap: 50px;
             align-items: center;
         }
-        .details-grid img {
-            width: 100%;
-            border-radius: 5px;
-        }
+        
         .details-grid h3 {
             font-size: 2rem;
             margin-bottom: 1.5rem;
@@ -339,6 +341,25 @@
             color: var(--accent-gold);
             margin-right: 15px;
         }
+        
+        /* --- Стили для новой галереи жилья --- */
+        .accommodation-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .accommodation-gallery .main-image {
+            grid-column: 1 / -1; /* Span across both columns */
+        }
+        .accommodation-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            display: block;
+        }
+        /* --- Конец стилей для новой галереи --- */
+
 
         /* --- Pricing Section (Screen 7) --- */
         #pricing {
@@ -439,7 +460,7 @@
 
         /* --- CTA Section (Screen 8) --- */
         #cta {
-            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://images.pexels.com/photos/776269/pexels-photo-776269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(https://i.ibb.co/Lz0Y15g/image-8.jpg); /* Используем фото 8 как фон */
             background-size: cover;
             background-position: center;
             text-align: center;
@@ -485,9 +506,6 @@
     <canvas id="snowflakes"></canvas>
 
     <header>
-        <video autoplay muted loop playsinline id="video-bg">
-            <source src="https://cdn.coverr.co/videos/coverr-a-snowboarder-carving-down-a-mountain-6115/1080p.mp4" type="video/mp4">
-        </video>
         <div class="hero-overlay"></div>
         <div class="logo">HOKKAIDO 2026</div>
         <div class="hero-content fade-in">
@@ -507,8 +525,7 @@
                     <p>Мы организуем экспедиции для тех, кто ищет большего. Для вольных духом, кто знает, что идеальный спуск по целине это лишь половина истории. Вторая половина рождается в общем смехе за бокалом редкого виски, в коллективном восторге на вершине горы, в новых связях, рождённых общей страстью.</p>
                 </div>
                 <div class="philosophy-image fade-in">
-                    <img src="https://images.pexels.com/photos/1004584/pexels-photo-1004584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Группа друзей у камина в уютном шале">
-                </div>
+                    <img src="https://i.ibb.co/q0h70Yv/image-2.jpg" alt="Красивый заснеженный склон с видом на гору"> </div>
             </div>
         </section>
 
@@ -564,23 +581,20 @@
             <div class="gallery-container">
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                         <img src="https://images.pexels.com/photos/1683492/pexels-photo-1683492.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Счастливые лица друзей на снегу">
-                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                         <img src="https://i.ibb.co/Sdn03W3/image-3.jpg" alt="Сноубордист в глубоком снегу"> <div class="overlay"><i class="fa-solid fa-play"></i></div>
                     </div>
                     <div class="gallery-item">
-                         <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2574&auto=format&fit=crop" alt="Сноубордист в глубоком снегу">
-                         <div class="overlay"><i class="fa-solid fa-play"></i></div> </div>
+                         <img src="https://i.ibb.co/3k5fHwS/image-6.jpg" alt="Горнолыжный подъемник над горами"> <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
                      <div class="gallery-item">
-                         <img src="https://images.pexels.com/photos/209695/pexels-photo-209695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Блюдо японской кухни">
-                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                         <img src="https://i.ibb.co/J3F6Y4M/image-4.jpg" alt="Лыжник в глубоком снегу среди деревьев"> <div class="overlay"><i class="fa-solid fa-play"></i></div>
                     </div>
                     <div class="gallery-item">
-                         <img src="https://images.pexels.com/photos/618848/pexels-photo-618848.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Счастливая пара на горнолыжном курорте">
-                         <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                         <img src="https://i.ibb.co/K50vR4T/image-5.jpg" alt="Сноубордист поднимает снежную пыль"> <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                     <div class="gallery-item">
-                         <img src="https://images.pexels.com/photos/3408354/pexels-photo-3408354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Вид на гору Фудзи зимой (в качестве примера японского пейзажа)">
-                         <div class="overlay"><i class="fa-solid fa-play"></i></div> </div>
+                         <img src="https://i.ibb.co/Lz0Y15g/image-8.jpg" alt="Группа друзей на вершине горы"> <div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -590,14 +604,12 @@
                 <h2 class="fade-in">Ваши кураторы приключения</h2>
                 <div class="curators-grid">
                     <div class="curator-card fade-in" style="transition-delay: 100ms;">
-                        <img src="https://images.unsplash.com/photo-1583864697784-a0efc8379f70?q=80&w=2576&auto=format&fit=crop" alt="Портрет Анны Крюковой">
-                        <h3>Анна Крюкова</h3>
+                        <img src="https://i.ibb.co/L5Q2j85/image-1.jpg" alt="Портрет Анны Крюковой"> <h3>Анна Крюкова</h3>
                         <p class="role">Горные лыжи</p>
                         <p>Не просто инструктор, а настоящий пионер фрирайд-маршрутов Хоккайдо. Анна знает каждый кулуар и лесную тропу Нисеко. Она научит вас читать рельеф и находить свою идеальную линию в глубоком снегу. С ней вы почувствуете горы как свой дом.</p>
                     </div>
                     <div class="curator-card fade-in" style="transition-delay: 200ms;">
-                        <img src="https://images.unsplash.com/photo-1542345821-bf630414d549?q=80&w=2574&auto=format&fit=crop" alt="Портрет Елизаветы Касьяновой">
-                        <h3>Елизавета Касьянова</h3>
+                        <img src="https://i.ibb.co/J3F6Y4M/image-4.jpg" alt="Портрет Елизаветы Касьяновой"> <h3>Елизавета Касьянова</h3>
                         <p class="role">Сноуборд</p>
                         <p>Эксперт по японскому паудеру и душа нашей команды. Елизавета обладает уникальным даром создавать непринужденную и веселую атмосферу. Она откроет вам секреты идеального скольжения в «пухляке» и покажет, где в деревне готовят самый вкусный рамен после катания.</p>
                     </div>
@@ -611,7 +623,7 @@
                 <div class="details-grid">
                     <div class="details-text fade-in">
                         <h3>Проживание</h3>
-                        <p>Приватное шале класса люкс в сердце Нисеко. Просторная гостиная с камином, панорамные окна с видом на вулкан Йотэй, полностью оборудованная кухня и уютные спальни. Идеальное место для отдыха и общения после насыщенного дня.</p>
+                        <p>Приватное шале класса люкс в сердце Нисеко. Просторная гостиная с камином, панорамные окна, полностью оборудованная кухня и уютные спальни. Идеальное место для отдыха и общения после насыщенного дня.</p>
                         <h3 style="margin-top: 2rem;">Примерный распорядок дня:</h3>
                         <ul class="schedule-list">
                             <li><span>07:30</span> Пробуждение, кофе, зарядка.</li>
@@ -622,8 +634,16 @@
                             <li><span>21:00</span> Экспедиционный брифинг у камина.</li>
                         </ul>
                     </div>
-                    <div class="details-image fade-in">
-                        <img src="https://images.pexels.com/photos/1733273/pexels-photo-1733273.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Вид на вулкан Йотэй из шале">
+                    <div class="accommodation-gallery fade-in">
+                        <div class="main-image">
+                            <img src="https://static.wixstatic.com/media/078a6c_e274a2745075489990a424aab6862372~mv2.jpg/v1/fill/w_980,h_653,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/078a6c_e274a2745075489990a424aab6862372~mv2.jpg" alt="Просторная гостиная шале">
+                        </div>
+                        <div>
+                            <img src="https://static.wixstatic.com/media/078a6c_45c9281a8c3e49e181c5323a3c20c6b1~mv2.jpg/v1/fill/w_980,h_653,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/078a6c_45c9281a8c3e49e181c5323a3c20c6b1~mv2.jpg" alt="Уютная спальня в шале">
+                        </div>
+                        <div>
+                           <img src="https://static.wixstatic.com/media/078a6c_05a415a73b2d417596b6e3f28a2a1b49~mv2.jpg/v1/fill/w_980,h_653,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/078a6c_05a415a73b2d417596b6e3f28a2a1b49~mv2.jpg" alt="Зона отдыха в шале">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -680,16 +700,11 @@
 
     <script>
     // --- JAVASCRIPT ---
-
-    // Snowflake effect
     const canvas = document.getElementById('snowflakes');
     const ctx = canvas.getContext('2d');
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     let particles = [];
-
     function createParticles() {
         particles = [];
         let particleCount = 200;
@@ -702,7 +717,6 @@
             });
         }
     }
-
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'rgba(253, 251, 247, 0.8)';
@@ -715,7 +729,6 @@
         ctx.fill();
         update();
     }
-
     let angle = 0;
     function update() {
         angle += 0.01;
@@ -723,7 +736,6 @@
             let p = particles[i];
             p.y += Math.cos(angle + p.density) + 1 + p.radius / 2;
             p.x += Math.sin(angle) * 2;
-
             if (p.x > canvas.width + 5 || p.x < -5 || p.y > canvas.height) {
                 if (i % 3 > 0) {
                     particles[i] = { x: Math.random() * canvas.width, y: -10, radius: p.radius, density: p.density };
@@ -737,24 +749,18 @@
             }
         }
     }
-    
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         createParticles();
     });
-
     createParticles();
     setInterval(draw, 33);
-
-
-    // Fade-in on scroll
     const faders = document.querySelectorAll('.fade-in');
     const appearOptions = {
         threshold: 0.2,
         rootMargin: "0px 0px -50px 0px"
     };
-
     const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
         entries.forEach(entry => {
             if (!entry.isIntersecting) {
@@ -765,11 +771,9 @@
             }
         });
     }, appearOptions);
-
     faders.forEach(fader => {
         appearOnScroll.observe(fader);
     });
-
     </script>
 </body>
 </html>
